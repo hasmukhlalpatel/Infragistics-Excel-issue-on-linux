@@ -1,0 +1,1 @@
+# Infragistics-Excel-issue-on-linux
