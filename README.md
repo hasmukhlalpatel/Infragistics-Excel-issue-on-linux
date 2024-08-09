@@ -11,3 +11,7 @@ $ docker buildx build -t my-img:1 -f ./ConsoleApp1/Dockerfile .
 * `<PackageReference Include="SkiaSharp" Version="2.88.8" />`
 * `<PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="2.88.8" />`
 * `<PackageReference Include="HarfBuzzSharp.NativeAssets.Linux" Version="7.3.0.2" />`
+
+### actual erorr
+
+![image](https://github.com/user-attachments/assets/0f1d413d-64e6-4e41-9659-2ee00f696a86)
