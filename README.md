@@ -16,6 +16,12 @@ $ docker buildx build -t my-img:1 -f ./ConsoleApp1/Dockerfile .
 https://github.com/GemBoxLtd/GemBox.Spreadsheet.Examples/blob/master/C%23/Platforms/Docker/Dockerfile
 https://www.gemboxsoftware.com/spreadsheet/examples/create-excel-pdf-on-docker-net-core/5902
 https://github.com/GemBoxLtd/GemBox.Spreadsheet.Examples/tree/master/C%23/Platforms/Docker
+
+
+### Docker run commnad
+
+docker run --name my-fms-test -it -v C:\Temp\repos\Infragistics-Excel-issue-on-linux\ConsoleApp1:/src mcr.microsoft.com/dotnet/sdk:8.0 /bin/bash
+
 ### actual erorr
 
 ![image](https://github.com/user-attachments/assets/0f1d413d-64e6-4e41-9659-2ee00f696a86)
@@ -60,3 +66,43 @@ https://github.com/GemBoxLtd/GemBox.Spreadsheet.Examples/tree/master/C%23/Platfo
    at Infragistics.Documents.Excel.WorksheetColumn.AutoFitWidth()
    at Program.<Main>$(String[] args) in /home/hasmukh/Desktop/tmp/issue1/ConsoleApp1/Program.cs:line 8
 `
+
+### Dockerfile (sample)[[bb](https://www.gemboxsoftware.com/spreadsheet/examples/create-excel-pdf-on-docker-net-core/5902)]
+``` yaml
+FROM mcr.microsoft.com/dotnet/runtime:8.0 AS base
+WORKDIR /app
+
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /src
+COPY ["SpreadsheetDocker.csproj", ""]
+RUN dotnet restore "./SpreadsheetDocker.csproj"
+COPY . .
+WORKDIR "/src/."
+RUN dotnet build "SpreadsheetDocker.csproj" -c Release -o /app/build
+
+FROM build AS publish
+RUN dotnet publish "SpreadsheetDocker.csproj" -c Release -o /app/publish /p:UseAppHost=false
+
+FROM base AS final
+
+# Update package sources to include supplemental packages (contrib archive area).
+RUN sed -i 's/main/main contrib/g' /etc/apt/sources.list.d/debian.sources
+
+# Downloads the package lists from the repositories.
+RUN apt-get update
+
+# Install font configuration.
+RUN apt-get install -y fontconfig
+
+# Install Microsoft TrueType core fonts.
+RUN apt-get install -y ttf-mscorefonts-installer
+
+# Or install Liberation TrueType fonts.
+# RUN apt-get install -y fonts-liberation
+
+# Or some other font package...
+
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "SpreadsheetDocker.dll"]
+```
