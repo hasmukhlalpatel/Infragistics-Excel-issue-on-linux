@@ -12,6 +12,10 @@ $ docker buildx build -t my-img:1 -f ./ConsoleApp1/Dockerfile .
 * `<PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="2.88.8" />`
 * `<PackageReference Include="HarfBuzzSharp.NativeAssets.Linux" Version="7.3.0.2" />`
 
+### working docker file sample
+https://github.com/GemBoxLtd/GemBox.Spreadsheet.Examples/blob/master/C%23/Platforms/Docker/Dockerfile
+https://www.gemboxsoftware.com/spreadsheet/examples/create-excel-pdf-on-docker-net-core/5902
+https://github.com/GemBoxLtd/GemBox.Spreadsheet.Examples/tree/master/C%23/Platforms/Docker
 ### actual erorr
 
 ![image](https://github.com/user-attachments/assets/0f1d413d-64e6-4e41-9659-2ee00f696a86)
