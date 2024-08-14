@@ -137,3 +137,47 @@ CMD ["/bin/bash"]
 ```sh
 docker build -f .\ConsoleApp1\DockerfileUbi8 -t ubi8-fonts .
 ```
+
+### DockerfileUbi8ttf (Not working)
+```yaml
+# Use UBI8 as the base image
+#FROM registry.access.redhat.com/ubi8/ubi
+FROM registry.access.redhat.com/ubi8/dotnet-80
+
+# Switch to root user (UID 0)
+USER 0
+
+# Install necessary tools (epel-release, wget, cabextract and fontconfig using microdnf)
+RUN microdnf install -y epel-release && \
+    microdnf install -y cabextract wget fontconfig && \
+    microdnf clean all
+
+# Download and install Microsoft Core Fonts
+RUN mkdir -p /usr/share/fonts/msttcorefonts && \
+    wget https://sourceforge.net/projects/corefonts/files/cabs/andale32.exe && \
+    wget https://sourceforge.net/projects/corefonts/files/cabs/arial32.exe && \
+    wget https://sourceforge.net/projects/corefonts/files/cabs/arialb32.exe && \
+    wget https://sourceforge.net/projects/corefonts/files/cabs/comic32.exe && \
+    wget https://sourceforge.net/projects/corefonts/files/cabs/courie32.exe && \
+    wget https://sourceforge.net/projects/corefonts/files/cabs/georgi32.exe && \
+    wget https://sourceforge.net/projects/corefonts/files/cabs/impact32.exe && \
+    wget https://sourceforge.net/projects/corefonts/files/cabs/times32.exe && \
+    wget https://sourceforge.net/projects/corefonts/files/cabs/trebuc32.exe && \
+    wget https://sourceforge.net/projects/corefonts/files/cabs/verdan32.exe && \
+    wget https://sourceforge.net/projects/corefonts/files/cabs/webdin32.exe && \
+    for exe in *.exe; do cabextract -d /usr/share/fonts/msttcorefonts "$exe"; done && \
+    fc-cache -fv
+
+# Switch back to default user if needed
+USER 1001
+
+# Default command
+CMD ["/bin/bash"]
+
+```
+
+#### docker build ttf
+```sh
+docker build -f .\ConsoleApp1\DockerfileUbi8ttf -t ubi8-ttf-fonts .
+```
+
