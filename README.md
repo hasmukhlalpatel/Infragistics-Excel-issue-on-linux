@@ -2,6 +2,11 @@
 
 $ docker buildx build -t my-img:1 -f ./ConsoleApp1/Dockerfile .
 
+### docker run commands
+$ docker run --name my-ubi8-fms-test -it --rm --user 0 -v C:\Temp\repos\Infragistics-Excel-issue-on-linux\ConsoleApp1:/src registry.access.redhat.com/ubi8/dotnet-80 /bin/bash
+$ docker run -it --rm registry.access.redhat.com/ubi8/ubi /bin/bash
+
+
 ## solution
 * https://www.nuget.org/packages?q=HarfBuzzSharp
 * https://www.gemboxsoftware.com/spreadsheet/examples/create-excel-pdf-on-docker-net-core/5902
@@ -208,4 +213,10 @@ CMD ["/bin/bash"]
 #### docker build
 ```sh
 docker build -f .\ConsoleApp1\DockerfileUbuntu -t ubuntu-mscorefonts .
-``
+```
+
+#### docker run
+```
+$ docker run -it --rm ubuntu-mscorefonts /bin/bash
+```
+
