@@ -109,3 +109,31 @@ WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "SpreadsheetDocker.dll"]
 ```
+
+### DockerfileUbi8 
+```yaml
+# Use UBI8 as the base image
+#FROM registry.access.redhat.com/ubi8/ubi
+FROM registry.access.redhat.com/ubi8/dotnet-80-runtime
+#FROM registry.access.redhat.com/ubi8/dotnet-80-aspnet-runtime
+#SDK
+#FROM registry.access.redhat.com/ubi8/dotnet-80
+
+# Switch to root user (UID 0)
+USER 0
+
+# Install necessary tools (epel-release, wget, cabextract and fontconfig using microdnf)
+RUN microdnf install -y wget fontconfig && \
+    microdnf clean all
+
+# Switch back to default user if needed
+USER 1001
+
+# Default command
+CMD ["/bin/bash"]
+
+```
+#### docker build
+```sh
+docker build -f .\ConsoleApp1\DockerfileUbi8 -t ubi8-fonts .
+```
