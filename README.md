@@ -70,7 +70,7 @@ https://developers.redhat.com/articles/2023/10/31/containerize-dotnet-applicatio
    at Program.<Main>$(String[] args) in /home/hasmukh/Desktop/tmp/issue1/ConsoleApp1/Program.cs:line 8
 `
 
-### Dockerfile (sample)[[bb](https://www.gemboxsoftware.com/spreadsheet/examples/create-excel-pdf-on-docker-net-core/5902)]
+### Dockerfile [sample](https://www.gemboxsoftware.com/spreadsheet/examples/create-excel-pdf-on-docker-net-core/5902)
 ``` yaml
 FROM mcr.microsoft.com/dotnet/runtime:8.0 AS base
 WORKDIR /app
