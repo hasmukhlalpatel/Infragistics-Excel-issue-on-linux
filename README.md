@@ -181,3 +181,31 @@ CMD ["/bin/bash"]
 docker build -f .\ConsoleApp1\DockerfileUbi8ttf -t ubi8-ttf-fonts .
 ```
 
+### DockerfileUbuntu
+```yaml
+# Use UBI8 as the base image
+#FROM ubuntu:latest
+#FROM mcr.microsoft.com/dotnet/runtime:8.0
+FROM mcr.microsoft.com/dotnet/sdk:8.0
+
+# Update package sources to include supplemental packages (contrib archive area).
+RUN sed -i 's/main/main contrib/g' /etc/apt/sources.list.d/debian.sources
+
+# Install necessary tools
+RUN apt update && \
+    apt install -y fontconfig --no-install-recommends && \
+    apt install -y ttf-mscorefonts-installer --no-install-recommends && \
+    apt install -y fonts-liberation && \
+    apt clean && rm -rf /var/lib/apt/lists/*
+
+# Update font cache
+RUN fc-cache -fv
+
+# Default command to keep the container running
+CMD ["/bin/bash"]
+```
+
+#### docker build
+```sh
+docker build -f .\ConsoleApp1\DockerfileUbuntu -t ubuntu-mscorefonts .
+``
