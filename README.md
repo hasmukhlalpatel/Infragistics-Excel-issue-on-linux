@@ -27,6 +27,9 @@ https://github.com/GemBoxLtd/GemBox.Spreadsheet.Examples/tree/master/C%23/Platfo
 
 docker run --name my-fms-test -it -v C:\Temp\repos\Infragistics-Excel-issue-on-linux\ConsoleApp1:/src mcr.microsoft.com/dotnet/sdk:8.0 /bin/bash
 
+docker run -it --rm --name cont-diff -v .\:/app -w /app  mcr.microsoft.com/dotnet/sdk:8.0 /bin/bash
+ -- `$(pwd)` = `.\` current folder
+
 ### try on radhat
 https://developers.redhat.com/articles/2023/10/31/containerize-dotnet-applications-dotnet8#customizing_the_application_image
 
