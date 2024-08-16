@@ -28,12 +28,12 @@ https://github.com/GemBoxLtd/GemBox.Spreadsheet.Examples/tree/master/C%23/Platfo
 docker run --name my-fms-test -it -v C:\Temp\repos\Infragistics-Excel-issue-on-linux\ConsoleApp1:/src mcr.microsoft.com/dotnet/sdk:8.0 /bin/bash
 
 docker run -it --rm --name cont-diff -v .\:/app -w /app  mcr.microsoft.com/dotnet/sdk:8.0 /bin/bash
- -- `$(pwd)` = `.\` current folder
 ```
+- Note: `$(pwd)` = `.\` current folder
 
-#### to see the diffrent in the container
+#### To see the differences in the running container
 ```
-docker diff cont-diff
+docker diff <container>
 ```
 
 ### try on radhat
